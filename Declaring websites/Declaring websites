@@ -1,0 +1,8 @@
+#!/bin/bash
+declare -a sites
+sites=("www.example.com" "www.example.org" "www.example.net")
+for site in "${sites[@]}"; do
+    if ! wget "$site" --timeout 30 -O - 2> /dev/null | grep "Normal operation string"; then
+        echo "The site is down" | mail -v -s "Site is down"  email@example.com
+    fi
+done

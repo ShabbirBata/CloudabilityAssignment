@@ -1,0 +1,6 @@
+#!/bin/bash
+while read -r site; do
+    if ! wget "$site" --timeout 30 -O - 2> /dev/null | grep "Normal operation string"; then
+        echo "The site is down" | mail -v -s "Site is down"  email@example.com
+    fi
+done < sites.txt
